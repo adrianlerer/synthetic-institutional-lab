@@ -2,7 +2,7 @@
 
 This repository contains the complete replication package for the preregistered experiment reported in **When Synthetic Institutions Repress: A Preregistered Causal Laboratory of Automation, Capital Concentration, and Model-Specific Governance**.
 
-The experiment tests how three language-model systems choose among regulation, redistribution, adjudication, abstention, and repression under controlled changes in automation, capital concentration, redistribution cost, and repression cost. It studies **model-system behavior under interventions**. It does not model real people, estimate population preferences, or claim to be a digital twin of any society.
+The experiment tests how three language-model systems choose among regulation, redistribution, adjudication, abstention, and repression under controlled changes in automation and capital concentration within two bundled cost regimes. Redistribution cost and repression cost move together in opposite directions, so their separate effects are not identified. It studies **model-system behavior under interventions**. It does not model real people, estimate population preferences, or claim to be a digital twin of any society.
 
 ## Confirmatory Run
 
@@ -27,7 +27,7 @@ Model endpoints are mutable external services. Re-running the code later may tes
 
 - `docs/acemoglu-causal-preregistration-2026-08-23.md`: frozen design, hypotheses, estimands, and claim gates.
 - `docs/acemoglu-confirmatory-results-2026-08-23.md`: bounded results report.
-- `data/confirmatory/events.jsonl`: raw row-level model outputs and errors.
+- `data/confirmatory/events.jsonl`: validated structured actions and error records. Successful raw response strings and complete provider envelopes were not archived.
 - `data/confirmatory/events.run.json`: run manifest and treatment cells.
 - `data/confirmatory/events.summary.json`: completion and cost summary.
 - `data/confirmatory/analysis.json`: derived world-level estimates and bootstrap intervals.
@@ -88,7 +88,7 @@ Never commit an API key. Provider availability, pricing, routing, and model beha
 
 ## Interpretation Boundary
 
-The package supports the following computational claim: controlled institutional treatments generated materially different policy-response functions across the tested model systems, and the OpenAI control displayed a positive automation-repression response when repression was cheap.
+The package supports the following computational claim: controlled institutional treatments generated materially different policy-response functions across the tested model systems, and the OpenAI control displayed a positive automation-repression response in the bundled regime combining costly redistribution with cheap repression.
 
 It does not support claims that:
 

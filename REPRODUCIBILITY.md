@@ -2,7 +2,7 @@
 
 ## Computational reproduction
 
-The archived `events.jsonl` file is sufficient to reproduce every numerical result reported in `analysis.json`. The analyzer resamples whole worlds within each treatment cell, preserving the preregistered unit of inference and avoiding event-level pseudoreplication.
+The archived structured `events.jsonl` file is sufficient to reproduce every numerical result reported in `analysis.json`. It contains validated action fields and error records, but not successful raw response strings or complete provider envelopes. The analyzer resamples whole worlds within each treatment cell, preserving the preregistered unit of inference and avoiding event-level pseudoreplication.
 
 ## Independent replication
 
@@ -13,7 +13,7 @@ An independent live replication requires access to the named model endpoints. Ex
 3. treatment cells, replica count, cycle count, and concurrency;
 4. prompt and completion token limits;
 5. parser, schema, timeout, and provider errors by model, cell, role, and cycle;
-6. raw outputs and the analysis artifact;
+6. raw response text, validated structured events, provider envelopes where permitted, and the analysis artifact;
 7. any difference from the preregistered protocol.
 
 ## Design safeguards
@@ -30,5 +30,7 @@ An independent live replication requires access to the named model endpoints. Ex
 - The study measures model-system behavior, not human behavior.
 - Remote endpoints can change without versioned weights or stable sampling semantics.
 - Eight replicas per cell provide limited precision for sparse outcomes.
+- Redistribution cost and repression cost are perfectly confounded in two bundled regimes; the separate effect of either cost is not identified.
 - The persistence comparison after repression is descriptive because repressive transitions are sparse and not separately randomized.
 - Provider routing is part of the tested configuration and a possible source of variation. Its separate causal effect was not identified because route was not independently randomized.
+- Successful raw response text and complete provider envelopes were not archived in this run, limiting forensic replay even though deterministic statistical reproduction is possible.

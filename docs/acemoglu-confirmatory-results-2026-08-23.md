@@ -6,7 +6,7 @@ Protocol: `acemoglu-causal-preregistration-2026-08-23.md`
 
 ## 1. Run integrity
 
-- Design: 8 preregistered cells, 3 model lanes, 8 world replicas, 3 cycles, and 2 role-arm assignments.
+- Design: 8 preregistered cells, 3 model lanes, 8 world replicas, 3 cycles, and 2 role-arm assignments. Automation and capital concentration vary independently within two bundled cost regimes; redistribution cost and repression cost are perfectly confounded.
 - Planned and observed rows: 1,152/1,152.
 - Valid structured actions: 1,145 (99.39%).
 - Errors: 7 (0.61%).
@@ -24,21 +24,21 @@ Claude produced no errors. Qwen produced one malformed-JSON error in a worker-co
 | Qwen 3.7 Max | 189 | 0 | 0 | 3 | 0 |
 | OpenAI GPT-5.4 Mini control | 133 | 27 | 7 | 20 | 5 |
 
-The model systems do not implement the same policy response function. Claude is nearly degenerate around redistribution. Qwen is also redistribution-dominant, with three repressive actions confined to C06. OpenAI uses the full policy vocabulary and places 11 of its 20 repressive actions in C08, the high-automation, high-capital, cheap-repression cell.
+The model systems do not implement the same policy response function. Claude is nearly degenerate around redistribution. Qwen is also redistribution-dominant, with three repressive actions confined to C06. OpenAI uses the full policy vocabulary and places 11 of its 20 repressive actions in C08, the high-automation, high-capital cell in the regime combining costly redistribution with cheap repression.
 
 ## 3. Preregistered repression estimands
 
 Risk differences are changes in within-world repression share. Intervals are percentile 95% world-cluster bootstrap intervals.
 
-| Model | Automation RD, cheap repression | Automation RD, expensive repression | Automation x cost regime | Capital RD | Automation x capital, cheap regime |
+| Model | Automation RD, repression-favoring regime | Automation RD, redistribution-favoring regime | Automation x bundled regime | Capital RD | Automation x capital, repression-favoring regime |
 |---|---:|---:|---:|---:|---:|
 | Claude Haiku 4.5 | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] |
 | Qwen 3.7 Max | 0.063 [0.000, 0.188] | 0.000 [0.000, 0.000] | 0.063 [0.000, 0.188] | -0.031 [-0.094, 0.000] | -0.125 [-0.375, 0.000] |
 | OpenAI GPT-5.4 Mini control | 0.229 [0.063, 0.396] | 0.021 [0.000, 0.063] | 0.208 [0.042, 0.375] | 0.104 [0.021, 0.188] | 0.208 [-0.125, 0.542] |
 
-### H1: automation under cheap repression
+### H1: automation in the repression-favoring bundled regime
 
-**Partially supported and model-dependent.** OpenAI shows a positive automation risk difference whose bootstrap interval excludes zero. Qwen shows a weaker nonnegative signal with an interval touching zero. Claude shows no variation.
+**Partially supported and model-dependent.** OpenAI shows a positive automation risk difference whose bootstrap interval excludes zero. Qwen shows a weaker nonnegative signal with an interval touching zero. Claude shows no variation. Because costly redistribution and cheap repression are bundled, the design cannot attribute this contrast to either cost separately.
 
 ### H2: capital strengthens the automation-repression effect
 
@@ -70,7 +70,7 @@ These large differences further demonstrate model-system sensitivity. They canno
 
 The following claim passes:
 
-> In a preregistered synthetic institutional laboratory, identical formal treatment cells generated sharply different policy response functions across three model systems. The OpenAI control exhibited a positive automation-repression response under cheap repression, while Qwen showed a weak localized response and Claude showed none.
+> In a preregistered synthetic institutional laboratory, identical formal treatment cells generated sharply different policy response functions across three model systems. The OpenAI control exhibited a positive automation-repression response in the bundled regime combining costly redistribution with cheap repression, while Qwen showed a weak localized response and Claude showed none.
 
 The following claims remain blocked:
 
@@ -84,7 +84,7 @@ The correct current label remains **causal synthetic institutional laboratory**.
 
 ## 6. Reproducibility artifacts
 
-- Raw events: `data/confirmatory/events.jsonl`
+- Structured events and errors: `data/confirmatory/events.jsonl` (successful raw response strings and complete provider envelopes were not archived)
 - Run manifest: `data/confirmatory/events.run.json`
 - Completion summary: `data/confirmatory/events.summary.json`
 - Derived analysis: `data/confirmatory/analysis.json`

@@ -77,7 +77,10 @@ def main() -> int:
     ax.axvline(0, color="#555555", linewidth=1)
     ax.set_yticks(y, NAMES)
     ax.set_xlabel("Automation risk difference in repression share")
-    ax.set_title("Automation effect when repression is cheap\n(world-cluster bootstrap 95% intervals)")
+    ax.set_title(
+        "Automation effect in the repression-favoring bundled cost regime\n"
+        "(world-cluster bootstrap 95% intervals)"
+    )
     fig.savefig(args.output_dir / "figure3_automation_effect.png", dpi=300)
     plt.close(fig)
     return 0
