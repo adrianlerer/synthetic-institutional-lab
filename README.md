@@ -1,6 +1,6 @@
 # Causal Synthetic Institutional Laboratory
 
-This repository contains the complete replication package for the preregistered experiment reported in **When Synthetic Institutions Repress: Automation, Capital Concentration, and Model-Specific Governance in a Causal LLM Laboratory**.
+This repository contains the complete replication package for the preregistered experiment reported in **When Synthetic Institutions Repress: A Preregistered Causal Laboratory of Automation, Capital Concentration, and Model-Specific Governance**.
 
 The experiment tests how three language-model systems choose among regulation, redistribution, adjudication, abstention, and repression under controlled changes in automation, capital concentration, redistribution cost, and repression cost. It studies **model-system behavior under interventions**. It does not model real people, estimate population preferences, or claim to be a digital twin of any society.
 

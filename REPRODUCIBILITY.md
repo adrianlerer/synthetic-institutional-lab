@@ -31,5 +31,4 @@ An independent live replication requires access to the named model endpoints. Ex
 - Remote endpoints can change without versioned weights or stable sampling semantics.
 - Eight replicas per cell provide limited precision for sparse outcomes.
 - The persistence comparison after repression is descriptive because repressive transitions are sparse and not separately randomized.
-- Provider routing is part of the tested system and a possible source of variation.
-
+- Provider routing is part of the tested configuration and a possible source of variation. Its separate causal effect was not identified because route was not independently randomized.
