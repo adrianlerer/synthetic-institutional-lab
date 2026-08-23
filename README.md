@@ -34,6 +34,7 @@ Model endpoints are mutable external services. Re-running the code later may tes
 - `experiments/tribe_v2_phase1/prompts.py`: exact prompt builder.
 - `experiments/tribe_v2_phase1/paid_acemoglu.py`: guarded live runner.
 - `experiments/tribe_v2_phase1/analyze_acemoglu_confirmatory.py`: deterministic analysis.
+- `experiments/tribe_v2_phase1/make_figures.py`: publication figures generated from the analysis artifact.
 - `experiments/tribe_v2_phase1/tests/test_acemoglu_causal.py`: treatment-isolation and calibration checks.
 
 ## Reproduce the Published Analysis
@@ -49,6 +50,14 @@ cmp data/confirmatory/analysis.json /tmp/analysis.json
 ```
 
 No API key and no paid model call are required to reproduce the reported statistics.
+
+Publication figures can be regenerated with Matplotlib:
+
+```bash
+python3 experiments/tribe_v2_phase1/make_figures.py \
+  data/confirmatory/analysis.json \
+  --output-dir figures
+```
 
 ## Run the Tests
 
@@ -96,4 +105,3 @@ Code is released under the MIT License. Documentation and the archived dataset a
 ## Citation
 
 Please cite the associated paper and this repository. A machine-readable citation is provided in `CITATION.cff`.
-
