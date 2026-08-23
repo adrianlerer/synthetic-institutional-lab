@@ -1,12 +1,12 @@
 # Causal Synthetic Institutional Laboratory
 
-This repository contains the complete replication package for the preregistered experiment reported in **When Synthetic Institutions Repress: A Preregistered Causal Laboratory of Automation, Capital Concentration, and Model-Specific Governance**.
+This repository contains the complete replication package for the protocol-governed experiment reported in **When Synthetic Institutions Repress: A Protocol-Governed Causal Laboratory of Automation, Capital Concentration, and Model-Specific Governance**.
 
 The experiment tests how three language-model systems choose among regulation, redistribution, adjudication, abstention, and repression under controlled changes in automation and capital concentration within two bundled cost regimes. Redistribution cost and repression cost move together in opposite directions, so their separate effects are not identified. It studies **model-system behavior under interventions**. It does not model real people, estimate population preferences, or claim to be a digital twin of any society.
 
 ## Confirmatory Run
 
-- 8 preregistered treatment cells
+- 8 protocol-specified treatment cells
 - 3 model systems
 - 8 independent world replicas per cell and model
 - 3 sequential cycles
@@ -88,7 +88,11 @@ Never commit an API key. Provider availability, pricing, routing, and model beha
 
 ## Interpretation Boundary
 
-The package supports the following computational claim: controlled institutional treatments generated materially different policy-response functions across the tested model systems, and the OpenAI control displayed a positive automation-repression response in the bundled regime combining costly redistribution with cheap repression.
+The package supports the following bounded computational claim: controlled institutional treatments generated materially different observed policy-response functions across the tested configurations. The GPT-5.4 mini index system displayed a positive automation-repression response in the bundled regime combining costly redistribution with cheap repression; that response exceeded Claude's but did not conclusively exceed Qwen's.
+
+## Protocol chronology
+
+The analysis protocol was frozen locally before the paid run, but the protocol and structured event file first received a public Git timestamp together in commit `fe2290b2` after execution. The repository supplies an auditable protocol and reproducible analysis, not independent proof of public preregistration.
 
 It does not support claims that:
 

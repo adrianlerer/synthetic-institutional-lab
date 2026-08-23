@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyze the preregistered Acemoglu confirmatory run at world level."""
+"""Analyze the protocol-governed Acemoglu confirmatory run at world level."""
 
 from __future__ import annotations
 
@@ -13,11 +13,11 @@ from statistics import mean
 
 MODEL_NAMES = {
     "claude_haiku_baseline": "Claude Haiku 4.5",
-    "qwen37_max": "Qwen 3.7 Max",
-    "openai_gpt54_mini_control": "OpenAI GPT-5.4 Mini control",
+    "qwen37_max": "Qwen3.7-Max",
+    "openai_gpt54_mini_control": "GPT-5.4 mini index system",
 }
-CHEAP = {"C05", "C06", "C07", "C08"}
-EXPENSIVE = {"C01", "C02", "C03", "C04"}
+CELLS = [f"C{i:02d}" for i in range(1, 9)]
+AUTOMATION_PAIRS = (("C01", "C02"), ("C03", "C04"), ("C05", "C06"), ("C07", "C08"))
 
 
 def percentile(values: list[float], q: float) -> float:
@@ -30,8 +30,12 @@ def percentile(values: list[float], q: float) -> float:
 
 
 def metric(cell_means: dict[str, float]) -> dict[str, float]:
-    auto_cheap = mean([cell_means["C06"] - cell_means["C05"], cell_means["C08"] - cell_means["C07"]])
-    auto_expensive = mean([cell_means["C02"] - cell_means["C01"], cell_means["C04"] - cell_means["C03"]])
+    auto_repression_favoring = mean(
+        [cell_means["C06"] - cell_means["C05"], cell_means["C08"] - cell_means["C07"]]
+    )
+    auto_redistribution_favoring = mean(
+        [cell_means["C02"] - cell_means["C01"], cell_means["C04"] - cell_means["C03"]]
+    )
     capital = mean(
         [
             cell_means["C03"] - cell_means["C01"],
@@ -40,13 +44,42 @@ def metric(cell_means: dict[str, float]) -> dict[str, float]:
             cell_means["C08"] - cell_means["C06"],
         ]
     )
-    auto_capital_cheap = (cell_means["C08"] - cell_means["C07"]) - (cell_means["C06"] - cell_means["C05"])
+    auto_capital_repression_favoring = (
+        (cell_means["C08"] - cell_means["C07"]) - (cell_means["C06"] - cell_means["C05"])
+    )
     return {
-        "automation_rd_cheap_repression": auto_cheap,
-        "automation_rd_expensive_repression": auto_expensive,
+        "automation_rd_repression_favoring": auto_repression_favoring,
+        "automation_rd_redistribution_favoring": auto_redistribution_favoring,
         "capital_concentration_rd": capital,
-        "automation_x_capital_cheap": auto_capital_cheap,
-        "automation_x_cost_regime": auto_cheap - auto_expensive,
+        "automation_x_capital_repression_favoring": auto_capital_repression_favoring,
+        "automation_x_cost_regime": auto_repression_favoring - auto_redistribution_favoring,
+    }
+
+
+def permutation_p_value(
+    cell_world_values: dict[str, list[float]],
+    statistic: str,
+    *,
+    draws: int,
+    rng: random.Random,
+) -> dict[str, float | int | str]:
+    """Monte Carlo randomization inference under exchangeability within design strata."""
+    observed = metric({cell: mean(values) for cell, values in cell_world_values.items()})[statistic]
+    exceedances = 0
+    for _ in range(draws):
+        permuted: dict[str, float] = {}
+        for low_cell, high_cell in AUTOMATION_PAIRS:
+            pooled = [*cell_world_values[low_cell], *cell_world_values[high_cell]]
+            rng.shuffle(pooled)
+            permuted[low_cell] = mean(pooled[:8])
+            permuted[high_cell] = mean(pooled[8:])
+        candidate = metric(permuted)[statistic]
+        exceedances += abs(candidate) >= abs(observed) - 1e-12
+    return {
+        "estimate": observed,
+        "p_value_two_sided": (exceedances + 1) / (draws + 1),
+        "draws": draws,
+        "null": "automation labels exchangeable within capital-by-cost-regime strata",
     }
 
 
@@ -55,6 +88,7 @@ def main() -> int:
     parser.add_argument("events", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--bootstrap", type=int, default=10_000)
+    parser.add_argument("--permutations", type=int, default=100_000)
     parser.add_argument("--seed", type=int, default=20_260_823)
     args = parser.parse_args()
 
@@ -73,6 +107,8 @@ def main() -> int:
             "events": str(args.events),
             "bootstrap_draws": args.bootstrap,
             "bootstrap_seed": args.seed,
+            "permutation_draws": args.permutations,
+            "permutation_seed": args.seed + 1,
             "analysis_unit": "world",
         },
         "quality": {
@@ -87,9 +123,11 @@ def main() -> int:
             },
         },
         "models": {},
+        "cross_model_contrasts": {},
     }
 
     rng = random.Random(args.seed)
+    model_world_values: dict[str, dict[str, list[float]]] = {}
     for model in MODEL_NAMES:
         model_state = [row for row in state if row["model_label"] == model]
         model_workers = [row for row in workers if row["model_label"] == model]
@@ -97,7 +135,7 @@ def main() -> int:
         revolt_counts = Counter(row["revolt_choice"] for row in model_workers)
         cell_world_values: dict[str, list[float]] = {}
         cell_policy_counts: dict[str, dict[str, int]] = {}
-        for cell in [f"C{i:02d}" for i in range(1, 9)]:
+        for cell in CELLS:
             values = []
             cell_rows = [row for row in model_state if row["cell_id"] == cell]
             cell_policy_counts[cell] = dict(sorted(Counter(row["policy_choice"] for row in cell_rows).items()))
@@ -105,6 +143,7 @@ def main() -> int:
                 wr = world_state[(model, cell, replica)]
                 values.append(mean([row["policy_choice"] == "repress" for row in wr]))
             cell_world_values[cell] = values
+        model_world_values[model] = cell_world_values
 
         cell_means = {cell: mean(values) for cell, values in cell_world_values.items()}
         estimates = metric(cell_means)
@@ -125,7 +164,7 @@ def main() -> int:
         }
 
         transitions = Counter()
-        for cell in [f"C{i:02d}" for i in range(1, 9)]:
+        for cell in CELLS:
             for replica in range(8):
                 wr = sorted(world_state[(model, cell, replica)], key=lambda row: row["cycle"])
                 for current, following in zip(wr, wr[1:]):
@@ -143,10 +182,74 @@ def main() -> int:
             "cell_policy_counts": cell_policy_counts,
             "cell_world_repression_share": cell_means,
             "world_cluster_bootstrap": inference,
+            "automation_randomization_inference": {
+                name: permutation_p_value(
+                    cell_world_values,
+                    name,
+                    draws=args.permutations,
+                    rng=random.Random(args.seed + 1 + index),
+                )
+                for index, name in enumerate(
+                    ("automation_rd_repression_favoring", "automation_x_cost_regime")
+                )
+            },
+            "provider_counts": dict(
+                sorted(
+                    Counter(
+                        row.get("provider", "missing")
+                        for row in actions
+                        if row["model_label"] == model
+                    ).items()
+                )
+            ),
+            "zero_event_sensitivity": {
+                "state_decisions": len(model_state),
+                "repressive_state_decisions": policy_counts.get("repress", 0),
+                "rule_of_three_upper95_if_zero": (
+                    3 / len(model_state) if model_state and policy_counts.get("repress", 0) == 0 else None
+                ),
+                "per_cell_world_any_repression_upper95_if_zero": 3 / 8,
+            },
             "repression_transition_descriptive": {
                 "after_repress": transition_rate("after_repress"),
                 "after_other": transition_rate("after_other"),
                 "counts": {f"{key[0]}|{key[1]}": value for key, value in sorted(transitions.items())},
+            },
+        }
+
+    contrast_rng = random.Random(args.seed + 10_000)
+    index_model = "openai_gpt54_mini_control"
+    for comparator in ("claude_haiku_baseline", "qwen37_max"):
+        observed_index = metric(
+            {cell: mean(values) for cell, values in model_world_values[index_model].items()}
+        )
+        observed_comparator = metric(
+            {cell: mean(values) for cell, values in model_world_values[comparator].items()}
+        )
+        draws = {
+            "automation_rd_repression_favoring": [],
+            "automation_x_cost_regime": [],
+        }
+        for _ in range(args.bootstrap):
+            sampled = {}
+            for model in (index_model, comparator):
+                sampled[model] = metric(
+                    {
+                        cell: mean(contrast_rng.choice(values) for _ in values)
+                        for cell, values in model_world_values[model].items()
+                    }
+                )
+            for name in draws:
+                draws[name].append(sampled[index_model][name] - sampled[comparator][name])
+        results["cross_model_contrasts"][f"{index_model}_minus_{comparator}"] = {
+            "index_system": MODEL_NAMES[index_model],
+            "comparator": MODEL_NAMES[comparator],
+            **{
+                name: {
+                    "estimate": observed_index[name] - observed_comparator[name],
+                    "ci95": [percentile(values, 0.025), percentile(values, 0.975)],
+                }
+                for name, values in draws.items()
             },
         }
 

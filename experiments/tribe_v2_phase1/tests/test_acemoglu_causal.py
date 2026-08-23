@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import random
 import unittest
 
 from experiments.tribe_v2_phase1.acemoglu_worlds import (
@@ -13,9 +14,30 @@ from experiments.tribe_v2_phase1.acemoglu_worlds import (
 from experiments.tribe_v2_phase1.acemoglu_runner import run_fixture
 from experiments.tribe_v2_phase1.prompts import build_messages
 from experiments.tribe_v2_phase1.schemas import SchemaValidationError, validate_acemoglu_role_action
+from experiments.tribe_v2_phase1.analyze_acemoglu_confirmatory import metric, permutation_p_value
 
 
 class AcemogluWorldTests(unittest.TestCase):
+    def test_metric_names_express_bundled_cost_regimes(self) -> None:
+        values = {f"C{i:02d}": 0.0 for i in range(1, 9)}
+        values["C06"] = 0.25
+        values["C08"] = 0.50
+        estimates = metric(values)
+        self.assertAlmostEqual(estimates["automation_rd_repression_favoring"], 0.375)
+        self.assertIn("automation_rd_redistribution_favoring", estimates)
+        self.assertNotIn("automation_rd_cheap_repression", estimates)
+
+    def test_randomization_inference_is_deterministic_for_structural_zero(self) -> None:
+        values = {f"C{i:02d}": [0.0] * 8 for i in range(1, 9)}
+        result = permutation_p_value(
+            values,
+            "automation_rd_repression_favoring",
+            draws=250,
+            rng=random.Random(17),
+        )
+        self.assertEqual(result["estimate"], 0.0)
+        self.assertEqual(result["p_value_two_sided"], 1.0)
+
     def test_eight_preregistered_cells_are_unique(self) -> None:
         self.assertEqual(len(CELLS), 8)
         treatments = {

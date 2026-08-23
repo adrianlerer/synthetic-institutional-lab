@@ -1,91 +1,61 @@
-# Acemoglu Causal Synthetic Laboratory: Confirmatory Results
+# Protocol-Governed Confirmatory Results
 
-Date: 2026-08-23  
-Status: confirmatory run complete; interpretation bounded to model-system behavior  
-Protocol: `acemoglu-causal-preregistration-2026-08-23.md`
+## Scope and provenance
 
-## 1. Run integrity
+- Execution date: 2026-08-23.
+- Design: 8 protocol-specified cells, 3 model-provider configurations, 8 world replicas, 3 cycles, and 2 role assignments.
+- Scale: 1,152 recorded rows in 192 worlds.
+- Valid structured actions: 1,145/1,152 (99.39%).
+- Spend: USD 5.43 under the authorized USD 10 hard cap.
+- Public chronology: protocol and events first appeared together in commit `fe2290b2`; this is not independent proof of public preregistration.
 
-- Design: 8 preregistered cells, 3 model lanes, 8 world replicas, 3 cycles, and 2 role-arm assignments. Automation and capital concentration vary independently within two bundled cost regimes; redistribution cost and repression cost are perfectly confounded.
-- Planned and observed rows: 1,152/1,152.
-- Valid structured actions: 1,145 (99.39%).
-- Errors: 7 (0.61%).
-- Complete worlds: 192/192.
-- Confirmatory spend: USD 5.425249100 under the separately authorized USD 10 hard cap.
-- Inference unit: world, with 10,000 world-cluster bootstrap draws and seed 20260823.
+All seven errors occurred in worker responses. No state-policy observation was missing. Successful raw response strings and complete provider envelopes were not archived.
 
-Claude produced no errors. Qwen produced one malformed-JSON error in a worker-coalition response. OpenAI produced four worker-role schema violations and two worker-role timeouts. No capitalist-state policy observation was missing, so primary repression estimands are complete. Errors remain in the dataset and are not manually imputed.
+## State-policy distributions
 
-## 2. Primary policy distributions
-
-| Model | Redistribute | Adjudicate | Regulate | Repress | Abstain |
+| Configuration | Redistribute | Adjudicate | Regulate | Repress | Abstain |
 |---|---:|---:|---:|---:|---:|
-| Claude Haiku 4.5 | 177 | 14 | 1 | 0 | 0 |
-| Qwen 3.7 Max | 189 | 0 | 0 | 3 | 0 |
-| OpenAI GPT-5.4 Mini control | 133 | 27 | 7 | 20 | 5 |
+| Claude Haiku 4.5 / Amazon Bedrock | 177 | 14 | 1 | 0 | 0 |
+| Qwen3.7-Max / Alibaba | 189 | 0 | 0 | 3 | 0 |
+| GPT-5.4 mini / OpenAI | 133 | 27 | 7 | 20 | 5 |
 
-The model systems do not implement the same policy response function. Claude is nearly degenerate around redistribution. Qwen is also redistribution-dominant, with three repressive actions confined to C06. OpenAI uses the full policy vocabulary and places 11 of its 20 repressive actions in C08, the high-automation, high-capital cell in the regime combining costly redistribution with cheap repression.
+Model and upstream provider are perfectly confounded. Results characterize each tested configuration and do not isolate model-weight or provider effects.
 
-## 3. Preregistered repression estimands
+## World-level treatment effects
 
-Risk differences are changes in within-world repression share. Intervals are percentile 95% world-cluster bootstrap intervals.
-
-| Model | Automation RD, repression-favoring regime | Automation RD, redistribution-favoring regime | Automation x bundled regime | Capital RD | Automation x capital, repression-favoring regime |
+| Configuration | Automation RD, repression-favoring regime | Automation RD, redistribution-favoring regime | Automation x bundled regime | Capital RD | Automation x capital |
 |---|---:|---:|---:|---:|---:|
 | Claude Haiku 4.5 | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] | 0.000 [0.000, 0.000] |
-| Qwen 3.7 Max | 0.063 [0.000, 0.188] | 0.000 [0.000, 0.000] | 0.063 [0.000, 0.188] | -0.031 [-0.094, 0.000] | -0.125 [-0.375, 0.000] |
-| OpenAI GPT-5.4 Mini control | 0.229 [0.063, 0.396] | 0.021 [0.000, 0.063] | 0.208 [0.042, 0.375] | 0.104 [0.021, 0.188] | 0.208 [-0.125, 0.542] |
+| Qwen3.7-Max | 0.063 [0.000, 0.188] | 0.000 [0.000, 0.000] | 0.063 [0.000, 0.188] | -0.031 [-0.094, 0.000] | -0.125 [-0.375, 0.000] |
+| GPT-5.4 mini index system | 0.229 [0.063, 0.396] | 0.021 [0.000, 0.063] | 0.208 [0.042, 0.375] | 0.104 [0.021, 0.188] | 0.208 [-0.125, 0.542] |
 
-### H1: automation in the repression-favoring bundled regime
+Intervals use 10,000 world-cluster bootstrap draws. The primary GPT-5.4 mini automation contrast has a stratified randomization p value of .031. The automation-by-regime interaction has p = .062 and is treated as suggestive.
 
-**Partially supported and model-dependent.** OpenAI shows a positive automation risk difference whose bootstrap interval excludes zero. Qwen shows a weaker nonnegative signal with an interval touching zero. Claude shows no variation. Because costly redistribution and cheap repression are bundled, the design cannot attribute this contrast to either cost separately.
+## Direct model-system contrasts
 
-### H2: capital strengthens the automation-repression effect
+- GPT-5.4 mini minus Claude, primary automation RD: 0.229 [0.063, 0.396].
+- GPT-5.4 mini minus Qwen, primary automation RD: 0.167 [-0.042, 0.354].
+- GPT-5.4 mini minus Claude, regime interaction: 0.208 [0.042, 0.375].
+- GPT-5.4 mini minus Qwen, regime interaction: 0.146 [-0.063, 0.354].
 
-**Not supported as a cross-model result.** OpenAI's automation-by-capital interaction is positive but imprecise and crosses zero. Qwen's estimate is negative; Claude's is zero.
+Model-system moderation is supported against Claude, not established against Qwen.
 
-### H3: repression creates later repressive persistence
+## Zero-event and persistence sensitivity
 
-**Exploratory signal only; confirmatory inference blocked by sparse support.** In OpenAI, next-cycle repression occurred after 30.8% of repressive decisions and after 9.6% of other decisions. Qwen had only two eligible post-repression transitions, both followed by repression. Claude supplied no repressive transitions. These descriptive contrasts are too sparse and treatment-confounded to identify the preregistered persistence effect.
+Claude's zero-width bootstrap intervals do not prove a future null. The decision-level rule-of-three upper bound is 3/192 = 1.56%; the per-cell any-event bound with eight zero-event worlds is 3/8 = 37.5%.
 
-### H4: redistribution becomes less attractive in the high-cost, high-automation/high-capital setting
+Persistence remains descriptive:
 
-**Supported only in the OpenAI control as a behavioral pattern.** OpenAI redistribution falls to 9/24 actions in C08, compared with 15/24 in C05, while repression rises to 11/24. Qwen and Claude remain dominated by redistribution, so the pattern does not generalize across model systems.
+- GPT-5.4 mini: 4/13 next-cycle repression after repression versus 11/115 after other policies.
+- Qwen: 2/2 versus 0/126.
+- Claude: no post-repression denominator and 0/128 after other policies.
 
-### H5: model family moderates effect size
+These transitions are sparse and endogenous, so no causal persistence effect is identified.
 
-**Strong descriptive support.** The policy distributions and treatment responses differ substantially by model. This is evidence about the tested model systems and routing configuration only. It is not national, cultural, worker, voter, or population evidence.
+## Protocol deviations
 
-## 4. Worker-coalition outcome
+Estimands 1-4 were estimated with bundled-cost labels clarified. Planned persistence estimand 5 was downgraded to description. Planned mediation estimand 6 was not estimated because the proposed mediators are deterministic functions of treatment and the required identification assumptions fail. Randomization inference and direct system contrasts were added as robustness checks.
 
-| Model | Participate | Do not participate | Missing/error |
-|---|---:|---:|---:|
-| Claude Haiku 4.5 | 0 | 192 | 0 |
-| Qwen 3.7 Max | 102 | 89 | 1 |
-| OpenAI GPT-5.4 Mini control | 168 | 18 | 6 |
+## Claim boundary
 
-These large differences further demonstrate model-system sensitivity. They cannot be interpreted as calibrated human revolt probabilities.
-
-## 5. Claim gate
-
-The following claim passes:
-
-> In a preregistered synthetic institutional laboratory, identical formal treatment cells generated sharply different policy response functions across three model systems. The OpenAI control exhibited a positive automation-repression response in the bundled regime combining costly redistribution with cheap repression, while Qwen showed a weak localized response and Claude showed none.
-
-The following claims remain blocked:
-
-- that the experiment replicates Acemoglu et al.'s formal theorem;
-- that LLM agents are digital twins of workers, states, Argentina, or any population;
-- that model-family differences are national or cultural differences;
-- that repression causally produces later lock-in based on the sparse observed transitions;
-- that the results predict an external institutional trajectory.
-
-The correct current label remains **causal synthetic institutional laboratory**. Promotion to an institutional digital twin still requires external calibration, provenance-bearing state variables, preregistered out-of-sample prediction, reported prediction error, and a defined validity horizon.
-
-## 6. Reproducibility artifacts
-
-- Structured events and errors: `data/confirmatory/events.jsonl` (successful raw response strings and complete provider envelopes were not archived)
-- Run manifest: `data/confirmatory/events.run.json`
-- Completion summary: `data/confirmatory/events.summary.json`
-- Derived analysis: `data/confirmatory/analysis.json`
-- Analyzer: `experiments/tribe_v2_phase1/analyze_acemoglu_confirmatory.py`
+The artifact is a causal synthetic institutional laboratory, not a digital twin or a proxy for human populations. It supports configuration-level stress testing. It does not identify separate redistribution-cost and repression-cost effects, provider effects, human preferences, or a stable latent preference of an entire model family.

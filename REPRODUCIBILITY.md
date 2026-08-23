@@ -2,7 +2,7 @@
 
 ## Computational reproduction
 
-The archived structured `events.jsonl` file is sufficient to reproduce every numerical result reported in `analysis.json`. It contains validated action fields and error records, but not successful raw response strings or complete provider envelopes. The analyzer resamples whole worlds within each treatment cell, preserving the preregistered unit of inference and avoiding event-level pseudoreplication.
+The archived structured `events.jsonl` file is sufficient to reproduce every numerical result reported in `analysis.json`. It contains validated action fields and error records, but not successful raw response strings or complete provider envelopes. The analyzer resamples whole worlds within each treatment cell, preserving the protocol-specified unit of inference and avoiding event-level pseudoreplication. It also runs stratified randomization inference and direct cross-model bootstrap contrasts.
 
 ## Independent replication
 
@@ -14,16 +14,20 @@ An independent live replication requires access to the named model endpoints. Ex
 4. prompt and completion token limits;
 5. parser, schema, timeout, and provider errors by model, cell, role, and cycle;
 6. raw response text, validated structured events, provider envelopes where permitted, and the analysis artifact;
-7. any difference from the preregistered protocol.
+7. any difference from the frozen analysis protocol.
 
 ## Design safeguards
 
 - The prompt never exposes a predicted policy, analytic policy score, cell purpose, or hypothesis label.
 - State and worker roles receive the same world state but have role-specific admissible outputs.
-- Only preregistered treatment fields and mechanically derived state variables differ across paired cells.
+- Only protocol-specified treatment fields and mechanically derived state variables differ across paired cells.
 - Policy measurement uses structured outputs validated before analysis.
 - Missing responses remain missing and are not manually reconstructed.
-- The OpenAI lane is reported as a preregistered control and is not retroactively pooled to redefine hypotheses.
+- The GPT-5.4 mini lane is reported as the primary index system; model-specific results remain separate and direct cross-system contrasts are reported.
+
+## Public chronology limitation
+
+The protocol and confirmatory structured events were first published in the same Git commit, `fe2290b2`. The package should therefore be described as protocol-governed, not as independently publicly preregistered.
 
 ## Known limitations
 

@@ -1,5 +1,7 @@
 # Preregistration: Automation, Repression, and Institutional Lock-In
 
+> **Post-run chronology clarification (2026-08-23):** This file was frozen locally before confirmatory execution, but it and `data/confirmatory/events.jsonl` first received a public Git timestamp together in commit `fe2290b2` after the run. The historical filename and original text are preserved for traceability. Publication materials describe the study as **protocol-governed**, not as independently publicly preregistered.
+
 Date: 2026-08-23  
 Status: protocol frozen; paid confirmatory run completed on 2026-08-23 under the separately authorized USD 10 hard cap  
 Working paper title: **Automation, Repression, and Institutional Lock-In: A Causal Synthetic-Population Test of Political Adaptation to AI**

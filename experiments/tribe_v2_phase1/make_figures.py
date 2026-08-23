@@ -12,7 +12,7 @@ import numpy as np
 
 
 MODELS = ["claude_haiku_baseline", "qwen37_max", "openai_gpt54_mini_control"]
-NAMES = ["Claude Haiku 4.5", "Qwen 3.7 Max", "OpenAI GPT-5.4 Mini"]
+NAMES = ["Claude Haiku 4.5", "Qwen3.7-Max", "GPT-5.4 mini"]
 COLORS = {
     "redistribute": "#2A9D8F",
     "adjudicate": "#457B9D",
@@ -69,7 +69,7 @@ def main() -> int:
     low = []
     high = []
     for model in MODELS:
-        result = data["models"][model]["world_cluster_bootstrap"]["automation_rd_cheap_repression"]
+        result = data["models"][model]["world_cluster_bootstrap"]["automation_rd_repression_favoring"]
         estimates.append(result["estimate"])
         low.append(result["estimate"] - result["ci95"][0])
         high.append(result["ci95"][1] - result["estimate"])
