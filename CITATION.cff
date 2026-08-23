@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this replication package, please cite the associated paper and repository."
+title: "Causal Synthetic Institutional Laboratory: Automation and Repression Replication Package"
+type: software
+authors:
+  - family-names: Lerer
+    given-names: Ignacio Adrian
+    orcid: "https://orcid.org/0009-0007-6378-9749"
+repository-code: "https://github.com/adrianlerer/synthetic-institutional-lab"
+url: "https://github.com/adrianlerer/synthetic-institutional-lab"
+license: MIT
+version: 1.0.0
+date-released: 2026-08-23
+keywords:
+  - computational law
+  - synthetic institutions
+  - large language models
+  - automation
+  - repression
+  - reproducibility
+

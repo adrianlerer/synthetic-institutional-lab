@@ -1,0 +1,102 @@
+{
+  "budget_cap_usd": "10",
+  "cells": [
+    {
+      "automation": "low",
+      "capital_concentration": "low",
+      "cell_id": "C01",
+      "redistribution_cost": "low",
+      "repression_cost": "high"
+    },
+    {
+      "automation": "high",
+      "capital_concentration": "low",
+      "cell_id": "C02",
+      "redistribution_cost": "low",
+      "repression_cost": "high"
+    },
+    {
+      "automation": "low",
+      "capital_concentration": "high",
+      "cell_id": "C03",
+      "redistribution_cost": "low",
+      "repression_cost": "high"
+    },
+    {
+      "automation": "high",
+      "capital_concentration": "high",
+      "cell_id": "C04",
+      "redistribution_cost": "low",
+      "repression_cost": "high"
+    },
+    {
+      "automation": "low",
+      "capital_concentration": "low",
+      "cell_id": "C05",
+      "redistribution_cost": "high",
+      "repression_cost": "low"
+    },
+    {
+      "automation": "high",
+      "capital_concentration": "low",
+      "cell_id": "C06",
+      "redistribution_cost": "high",
+      "repression_cost": "low"
+    },
+    {
+      "automation": "low",
+      "capital_concentration": "high",
+      "cell_id": "C07",
+      "redistribution_cost": "high",
+      "repression_cost": "low"
+    },
+    {
+      "automation": "high",
+      "capital_concentration": "high",
+      "cell_id": "C08",
+      "redistribution_cost": "high",
+      "repression_cost": "low"
+    }
+  ],
+  "cycles": 3,
+  "expected_rows": 1152,
+  "models": [
+    {
+      "budget_completion_tokens": 600,
+      "family": "western_constitutional_baseline",
+      "label": "claude_haiku_baseline",
+      "openrouter_id": "anthropic/claude-haiku-4.5",
+      "request_completion_tokens": 350,
+      "retry_on_error": true,
+      "role": "baseline"
+    },
+    {
+      "budget_completion_tokens": 1800,
+      "family": "china_qwen_frontier",
+      "label": "qwen37_max",
+      "notes": "May report reasoning/output tokens above visible JSON length.",
+      "openrouter_id": "qwen/qwen3.7-max",
+      "request_completion_tokens": 900,
+      "retry_on_error": true,
+      "role": "candidate"
+    },
+    {
+      "budget_completion_tokens": 1000,
+      "family": "openai_control",
+      "label": "openai_gpt54_mini_control",
+      "notes": "Separate OpenAI control block; not pooled retroactively with the original three-model hypothesis.",
+      "openrouter_id": "openai/gpt-5.4-mini",
+      "request_completion_tokens": 700,
+      "retry_on_error": true,
+      "role": "preregistered_control"
+    }
+  ],
+  "purpose": "acemoglu_confirmatory_preregistered",
+  "replicas": 8,
+  "role_arms": {
+    "capitalist_state": "normative_reform",
+    "worker_coalition": "resource_allocation"
+  },
+  "run_id": "acemoglu_paid_pilot_1787499397",
+  "worlds": 192
+}

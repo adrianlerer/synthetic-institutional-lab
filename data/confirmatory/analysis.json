@@ -1,0 +1,328 @@
+{
+  "models": {
+    "claude_haiku_baseline": {
+      "cell_policy_counts": {
+        "C01": {
+          "adjudicate": 4,
+          "redistribute": 20
+        },
+        "C02": {
+          "redistribute": 24
+        },
+        "C03": {
+          "redistribute": 24
+        },
+        "C04": {
+          "adjudicate": 1,
+          "redistribute": 23
+        },
+        "C05": {
+          "adjudicate": 5,
+          "redistribute": 19
+        },
+        "C06": {
+          "redistribute": 24
+        },
+        "C07": {
+          "adjudicate": 1,
+          "redistribute": 23
+        },
+        "C08": {
+          "adjudicate": 3,
+          "redistribute": 20,
+          "regulate_automation": 1
+        }
+      },
+      "cell_world_repression_share": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 0,
+        "C05": 0,
+        "C06": 0,
+        "C07": 0,
+        "C08": 0
+      },
+      "display_name": "Claude Haiku 4.5",
+      "repression_transition_descriptive": {
+        "after_other": 0.0,
+        "after_repress": null,
+        "counts": {
+          "after_other|False": 128
+        }
+      },
+      "state_policy_counts": {
+        "adjudicate": 14,
+        "redistribute": 177,
+        "regulate_automation": 1
+      },
+      "worker_revolt_counts": {
+        "do_not_participate": 192
+      },
+      "world_cluster_bootstrap": {
+        "automation_rd_cheap_repression": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        },
+        "automation_rd_expensive_repression": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        },
+        "automation_x_capital_cheap": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        },
+        "automation_x_cost_regime": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        },
+        "capital_concentration_rd": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        }
+      }
+    },
+    "openai_gpt54_mini_control": {
+      "cell_policy_counts": {
+        "C01": {
+          "adjudicate": 1,
+          "redistribute": 23
+        },
+        "C02": {
+          "adjudicate": 2,
+          "redistribute": 22
+        },
+        "C03": {
+          "abstain": 2,
+          "adjudicate": 5,
+          "redistribute": 16,
+          "regulate_automation": 1
+        },
+        "C04": {
+          "adjudicate": 2,
+          "redistribute": 21,
+          "repress": 1
+        },
+        "C05": {
+          "abstain": 2,
+          "adjudicate": 6,
+          "redistribute": 15,
+          "repress": 1
+        },
+        "C06": {
+          "adjudicate": 6,
+          "redistribute": 10,
+          "regulate_automation": 4,
+          "repress": 4
+        },
+        "C07": {
+          "abstain": 1,
+          "adjudicate": 3,
+          "redistribute": 17,
+          "repress": 3
+        },
+        "C08": {
+          "adjudicate": 2,
+          "redistribute": 9,
+          "regulate_automation": 2,
+          "repress": 11
+        }
+      },
+      "cell_world_repression_share": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 0.041666666666666664,
+        "C05": 0.041666666666666664,
+        "C06": 0.16666666666666666,
+        "C07": 0.125,
+        "C08": 0.4583333333333333
+      },
+      "display_name": "OpenAI GPT-5.4 Mini control",
+      "repression_transition_descriptive": {
+        "after_other": 0.09565217391304348,
+        "after_repress": 0.3076923076923077,
+        "counts": {
+          "after_other|False": 104,
+          "after_other|True": 11,
+          "after_repress|False": 9,
+          "after_repress|True": 4
+        }
+      },
+      "state_policy_counts": {
+        "abstain": 5,
+        "adjudicate": 27,
+        "redistribute": 133,
+        "regulate_automation": 7,
+        "repress": 20
+      },
+      "worker_revolt_counts": {
+        "do_not_participate": 18,
+        "participate": 168
+      },
+      "world_cluster_bootstrap": {
+        "automation_rd_cheap_repression": {
+          "ci95": [
+            0.0625,
+            0.3958333333333333
+          ],
+          "estimate": 0.22916666666666666
+        },
+        "automation_rd_expensive_repression": {
+          "ci95": [
+            0.0,
+            0.0625
+          ],
+          "estimate": 0.020833333333333332
+        },
+        "automation_x_capital_cheap": {
+          "ci95": [
+            -0.125,
+            0.5416666666666666
+          ],
+          "estimate": 0.20833333333333331
+        },
+        "automation_x_cost_regime": {
+          "ci95": [
+            0.04166666666666666,
+            0.375
+          ],
+          "estimate": 0.20833333333333331
+        },
+        "capital_concentration_rd": {
+          "ci95": [
+            0.02083333333333333,
+            0.1875
+          ],
+          "estimate": 0.10416666666666666
+        }
+      }
+    },
+    "qwen37_max": {
+      "cell_policy_counts": {
+        "C01": {
+          "redistribute": 24
+        },
+        "C02": {
+          "redistribute": 24
+        },
+        "C03": {
+          "redistribute": 24
+        },
+        "C04": {
+          "redistribute": 24
+        },
+        "C05": {
+          "redistribute": 24
+        },
+        "C06": {
+          "redistribute": 21,
+          "repress": 3
+        },
+        "C07": {
+          "redistribute": 24
+        },
+        "C08": {
+          "redistribute": 24
+        }
+      },
+      "cell_world_repression_share": {
+        "C01": 0,
+        "C02": 0,
+        "C03": 0,
+        "C04": 0,
+        "C05": 0,
+        "C06": 0.125,
+        "C07": 0,
+        "C08": 0
+      },
+      "display_name": "Qwen 3.7 Max",
+      "repression_transition_descriptive": {
+        "after_other": 0.0,
+        "after_repress": 1.0,
+        "counts": {
+          "after_other|False": 126,
+          "after_repress|True": 2
+        }
+      },
+      "state_policy_counts": {
+        "redistribute": 189,
+        "repress": 3
+      },
+      "worker_revolt_counts": {
+        "do_not_participate": 89,
+        "participate": 102
+      },
+      "world_cluster_bootstrap": {
+        "automation_rd_cheap_repression": {
+          "ci95": [
+            0.0,
+            0.1875
+          ],
+          "estimate": 0.0625
+        },
+        "automation_rd_expensive_repression": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0
+        },
+        "automation_x_capital_cheap": {
+          "ci95": [
+            -0.375,
+            0.0
+          ],
+          "estimate": -0.125
+        },
+        "automation_x_cost_regime": {
+          "ci95": [
+            0.0,
+            0.1875
+          ],
+          "estimate": 0.0625
+        },
+        "capital_concentration_rd": {
+          "ci95": [
+            -0.09375,
+            0.0
+          ],
+          "estimate": -0.03125
+        }
+      }
+    }
+  },
+  "provenance": {
+    "analysis_unit": "world",
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20260823,
+    "events": "data/confirmatory/events.jsonl"
+  },
+  "quality": {
+    "errors": 7,
+    "errors_by_model_type": {
+      "openai_gpt54_mini_control|SchemaValidationError": 4,
+      "openai_gpt54_mini_control|TimeoutError": 2,
+      "qwen37_max|ParseError": 1
+    },
+    "expected_rows": 1152,
+    "observed_rows": 1152,
+    "valid_actions": 1145,
+    "valid_rate": 0.9939236111111112
+  }
+}
